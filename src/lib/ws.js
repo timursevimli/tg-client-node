@@ -7,7 +7,7 @@ const createConnection = ({ host, port, apiKey }) =>
     const url = `wss://${host}:${port}`;
     const socket = new WebSocket(url, {
       rejectUnauthorized: false,
-      headers: { 'X-API-Key': apiKey },
+      headers: { Authorization: `Bearer ${apiKey}` },
     });
     socket.once('error', reject);
     socket.once('open', () => {
