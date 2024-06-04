@@ -25,6 +25,7 @@ const bindMethods = (object) => {
 
 const parseFromChat = (data) => {
   const { chatId, date, message, id } = data;
+  if (!message) return null;
   const messageTime = date * 1000;
   const currentTime = Date.now();
   return {
@@ -39,6 +40,7 @@ const parseFromChat = (data) => {
 
 const parseFromChannel = (data) => {
   const { peerId, date, message, id } = data.message;
+  if (!message) return null;
   const { channelId } = peerId;
   const messageTime = date * 1000;
   const currentTime = Date.now();
