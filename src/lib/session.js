@@ -7,7 +7,7 @@ const { StringSession } = require('telegram/sessions');
 const SESSIONS_PATH = 'sessions';
 
 const getSessionFile = (name) =>
-  path.join(process.cwd(), 'src', SESSIONS_PATH, name + '.session');
+  path.join(process.cwd(), SESSIONS_PATH, name + '.session');
 
 const getSession = async (name = 'session') => {
   let session = new StringSession('');
