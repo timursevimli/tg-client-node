@@ -55,7 +55,7 @@ const getClient = async (sessionName) => {
   client.addEventHandler((event) => {
     const data = parseMessage(event);
     if (!data) return;
-    ws.send(JSON.stringify(data));
+    ws.send(JSON.stringify(data), { binary: false });
   });
 })();
 
