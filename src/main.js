@@ -18,7 +18,7 @@ const rl = readline.createInterface({
 });
 
 const { APPID, APPHASH, PHONE, API_KEY } = env;
-const { host, port } = config;
+const { host, port, ignoredChannels } = config;
 
 const init = async (client, sessionName) => {
   await saveSession(client.session, sessionName);
@@ -54,7 +54,8 @@ const getClient = async (sessionName) => {
   await init(client, sessionName);
   client.addEventHandler((event) => {
     const data = parseMessage(event);
-    if (!data) return;
+    if (!data || ignoredChannels.includes(data.channelId)) return;
+    // logger.log(data);
     ws.send(JSON.stringify(data), { binary: false });
   });
 })();
