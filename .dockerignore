@@ -34,3 +34,4 @@ README.md
 **/logs
 **/*.tar
 **/*.zip
+sessions/*
