@@ -35,6 +35,10 @@ const getClient = async (sessionName) => {
   await client.start({
     phoneNumber: () => PHONE,
     phoneCode: async () => await rl.question('Please enter the code: '),
+    onError: (err) => {
+      logger.error(err);
+      process.exit(1);
+    },
   });
   return client;
 };
@@ -55,7 +59,7 @@ const getClient = async (sessionName) => {
   client.addEventHandler((event) => {
     const data = parseMessage(event);
     if (!data || ignoredChannels.includes(data.channelId)) return;
-    // logger.log(data);
+    // console.log(data);
     ws.send(JSON.stringify(data), { binary: false });
   });
 })();
