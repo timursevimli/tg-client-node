@@ -32,10 +32,6 @@ const config = {
     port: {
       type: 'number',
     },
-    ignoredChannels: {
-      type: 'array',
-      default: [],
-    },
   },
 };
 
