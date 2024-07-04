@@ -46,10 +46,6 @@ const getClient = async (sessionName) => {
 (async () => {
   const sessionName = 'first';
   const ws = await createConnection({ host, port, apiKey: API_KEY });
-  ws.on('error', (err) => {
-    logger.error(err);
-    process.exit(1);
-  });
   ws.on('close', () => {
     logger.log('Connection closed');
     process.exit(1);
