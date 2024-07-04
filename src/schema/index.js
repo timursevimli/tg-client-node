@@ -2,7 +2,7 @@
 
 const env = {
   type: 'object',
-  required: ['APPID', 'APPHASH', 'PHONE', 'API_KEY'],
+  required: ['APPID', 'APPHASH', 'PHONE', 'API_KEY', 'AUTH_TOKEN'],
   properties: {
     APPID: {
       type: 'number',
@@ -14,6 +14,9 @@ const env = {
       type: 'string',
     },
     API_KEY: {
+      type: 'string',
+    },
+    AUTH_TOKEN: {
       type: 'string',
     },
   },
