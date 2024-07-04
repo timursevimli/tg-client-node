@@ -132,3 +132,5 @@ dist
 *.session
 *.tar
 *.zip
+
+.DS_Store
