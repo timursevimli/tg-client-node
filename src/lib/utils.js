@@ -60,7 +60,11 @@ const parsers = {
 const parseMessage = (event) => {
   const { className, originalArgs } = event;
   const parser = parsers[className];
-  return parser ? parser(originalArgs) : null;
+  if (!parser) return null;
+  const result = parser(originalArgs);
+  const image = event?.message?.media?.photo || null;
+  if (!image) return result.message ? result : null;
+  return { ...result, image };
 };
 
 module.exports = {

@@ -17,8 +17,8 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-const { APPID, APPHASH, PHONE, API_KEY } = env;
-const { host, port, ignoredChannels } = config;
+const { APPID, APPHASH, PHONE, API_KEY, MONITORING_CHANNEL } = env;
+const { host, port } = config;
 
 const init = async (client, sessionName) => {
   await saveSession(client.session, sessionName);
@@ -54,9 +54,17 @@ const getClient = async (sessionName) => {
   await init(client, sessionName);
   client.addEventHandler((event) => {
     const data = parseMessage(event);
-    if (!data || ignoredChannels.includes(data.channelId)) return;
-    // console.log(data);
-    ws.send(JSON.stringify(data), { binary: false });
+    if (!data || data.channelId === MONITORING_CHANNEL) return;
+    const { image } = data;
+    if (!image) return void ws.send(JSON.stringify(data), { binary: false });
+    client.downloadMedia(image, {}).then(
+      (buffer) => {
+        const base64Image = buffer.toString('base64');
+        const payload = { ...data, image: base64Image };
+        ws.send(JSON.stringify(payload), { binary: true });
+      },
+      (err) => void logger.error(err),
+    );
   });
 })();
 
