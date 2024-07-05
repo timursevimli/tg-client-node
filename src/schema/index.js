@@ -19,6 +19,10 @@ const env = {
     AUTH_TOKEN: {
       type: 'string',
     },
+    MONITORING_CHANNEL: {
+      type: 'string',
+      default: 2021157282,
+    },
   },
 };
 
