@@ -47,8 +47,8 @@ const getClient = async (sessionName) => {
   const sessionName = 'first';
   const ws = await createConnection({ host, port, apiKey: API_KEY });
   ws.on('close', () => {
-    logger.log('Connection closed');
-    process.exit(1);
+    logger.warn('Connection closed');
+    setTimeout(process.exit, 0, 1);
   });
   const client = await getClient(sessionName);
   await init(client, sessionName);
@@ -70,5 +70,5 @@ const getClient = async (sessionName) => {
 
 process.on('uncaughtException', (err) => {
   logger.error(err);
-  process.exit(1);
+  setTimeout(process.exit, 0, 1);
 });
